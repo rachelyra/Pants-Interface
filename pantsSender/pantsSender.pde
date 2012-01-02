@@ -18,15 +18,44 @@ void setup () {
 
 static byte produceOutData () {
 
-    if (digitalRead(BUTTON_PIN1) == 0){
+   // Get the status of each pin
+   byte button_pin1_status = digitalRead( BUTTON_PIN1 );
+   byte button_pin2_status = digitalRead( BUTTON_PIN2 );
+
+   static byte button_pin1_was_pressed = 0;
+   static byte button_pin2_was_pressed = 0;
+
+   // If button 1 is pressed and was not pressed the last time we checked
+   // then this is a new keypress and should be sent to the computer.
+   // Otherwise, if it is not pressed and it was pressed the last time we checked
+   // then it has been released and we need to update the 'pressed' variable to
+   // indicate that.
+   if( (button_pin1_status == 0) && (button_pin1_was_pressed == 0) )
+   {
       outData = 1;
+      button_pin1_was_pressed = 1;
       return 1;
-    }
-    if (digitalRead(BUTTON_PIN2) == 0){
+   }
+   else if( (button_pin1_status == 1) && (button_pin1_was_pressed == 1) )
+   {
+      button_pin1_was_pressed = 0;
+   }
+
+
+   // Same as above for button 2
+   if( (button_pin2_status == 0) && (button_pin2_was_pressed == 0) )
+   {
       outData = 2;
+      button_pin2_was_pressed = 1;
       return 1;
-    }
-    return 0;
+   }
+   else if( (button_pin2_status == 1) && (button_pin2_was_pressed == 1) )
+   {
+      button_pin2_was_pressed = 0;
+   }
+
+   // Otherwise nothing interesting happened
+   return 0;
 }
 
 void loop () {
