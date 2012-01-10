@@ -1,5 +1,5 @@
-#include <Ports.h>
-#include <RF12.h>
+#include <Ports.h> // jeelabs.net/projects/cafe/wiki/Ports
+#include <RF12.h>  // jeelabs.net/projects/cafe/wiki/RF12
 
 #define BUTTON_PIN1 4
 #define BUTTON_PIN2 7
