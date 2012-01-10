@@ -1,8 +1,8 @@
 #include <Ports.h>
 #include <RF12.h>
 
-#define BUTTON_PIN1 12
-#define BUTTON_PIN2 13
+#define BUTTON_PIN1 4
+#define BUTTON_PIN2 7
 
 MilliTimer sendTimer;
 typedef struct { byte data; } Payload;
@@ -12,6 +12,8 @@ byte pendingOutput;
 void setup () {
     pinMode(BUTTON_PIN1, INPUT);
     digitalWrite(BUTTON_PIN1, HIGH);
+    pinMode(BUTTON_PIN2, INPUT);
+    digitalWrite(BUTTON_PIN2, HIGH);
     Serial.begin(9600);
     rf12_initialize(2, RF12_868MHZ);
 }
@@ -32,7 +34,7 @@ static byte produceOutData () {
    // indicate that.
    if( (button_pin1_status == 0) && (button_pin1_was_pressed == 0) )
    {
-      outData = 1;
+      outData.data = 1;
       button_pin1_was_pressed = 1;
       return 1;
    }
@@ -45,7 +47,7 @@ static byte produceOutData () {
    // Same as above for button 2
    if( (button_pin2_status == 0) && (button_pin2_was_pressed == 0) )
    {
-      outData = 2;
+      outData.data = 2;
       button_pin2_was_pressed = 1;
       return 1;
    }
@@ -73,6 +75,7 @@ void loop () {
         rf12_sendStart(0, &outData, sizeof outData, 2);
         // optional: rf12_sendWait(2); // wait for send to finish
         pendingOutput = 0;
+        //Serial.println(outData.data,DEC);
     }    
 }
 
