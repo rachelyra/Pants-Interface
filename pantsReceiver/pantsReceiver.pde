@@ -12,7 +12,7 @@ void setup () {
 }
 
 static void consumeInData () {
-    if (inData.data == 1 || inData.data == 2){
+    if (inData.data == 1 || inData.data == 2 || inData.data == 3 || inData.data == 4){
       //Serial.print("recv ");
       //Serial.println(inData.data, HEX);
       Serial.write(inData.data);
