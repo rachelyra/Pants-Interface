@@ -37,10 +37,14 @@ if (code == 1) {
    UsbKeyboard.sendKeyStroke(KEY_A);
 }
 if (code == 2) {
-   UsbKeyboard.sendKeyStroke(KEY_ENTER);
+   UsbKeyboard.sendKeyStroke(KEY_S);
 }
-
-
+if (code == 3) {
+   UsbKeyboard.sendKeyStroke(KEY_D);
+}
+if (code == 4) {
+   UsbKeyboard.sendKeyStroke(KEY_F);
+}
 
  digitalWrite(13, !digitalRead(13));
 
